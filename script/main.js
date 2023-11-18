@@ -20,15 +20,14 @@ STEP 1 - CHIEDO ALL'UTENTE QUANTI KM VUOLE PERCORRERE
 2) Comando prompt per ricevere input utente dalla pagina
 3) Comando console.log per vedere valori in console
  */
-const userKm = prompt('Inserisci i km da percorrere');
-let checkNum = true;
+const userKm = prompt('Benvenuto! Calcola il prezzo del tuo biglietto:\n\nSTEP 1:\nInserisci i km da percorrere (il valore deve essere ESCLUSIVAMENTE numerico)');
 
-if (isNaN(userKm)||userKm == '') {
-    alert("Il valore inserito per i km non è un numero, non sarà eseguito il calcolo del prezzo ma si dovrà ricaricare la pagina");
-    checkNum = false;
+if (isNaN(userKm) || userKm == '' || userKm == null) {
+    alert(`Il valore ${userKm} inserito per i km non è un numero, la pagina sarà ricaricata`);
+    location.reload();
 }
 
-console.log(userKm, checkNum);
+console.log(userKm);
 
 /* 
 STEP 2 - CHIEDO ALL'UTENTE LA SUA ETA'
@@ -36,14 +35,15 @@ STEP 2 - CHIEDO ALL'UTENTE LA SUA ETA'
 2) Comando prompt per ricevere input utente dalla pagina
 3) Comando console.log per vedere valori in console
  */
-const userAge = prompt('Inserisci la tua età');
 
-if (isNaN(userAge)||userAge == '') {
-    alert("Il valore inserito per l'età non è un numero, non sarà eseguito il calcolo del prezzo ma si dovrà ricaricare la pagina");
-    checkNum = false;
+const userAge = prompt('Inserisci la tua età (il valore deve essere ESCLUSIVAMENTE numerico)');
+
+if (isNaN(userAge) || userAge == '' || userAge == null) {
+    alert(`Il valore ${userAge} inserito per l'età non è un numero, la pagina sarà ricaricata`);
+    location.reload();
 }
 
-console.log(userAge, checkNum);
+console.log(userAge);
 
 /* 
 STEP3 - ESEGUO IL CALCOLO DEL COSTO DEL BIGLIETTO
@@ -61,31 +61,22 @@ const under18Discount = 20;
 const over65Discount = 40;
 let priceTicket;
 
-if (checkNum) {
+if (userAge < 18) {
 
-    if (userAge < 18) {
-        
-        priceTicket = userKm * priceKm * ((100 - under18Discount) / 100);
-        console.log(`L'utente è minorenne perchè ha ${userAge} anni, quindi il costo del biglietto è di ${priceTicket.toFixed(2)}€ perchè ha diritto allo sconto del ${under18Discount}%`);
-    
-    } else if (userAge > 65) {
-        
-        priceTicket = userKm * priceKm * ((100 - over65Discount) / 100);
-        console.log(`L'utente è over 65 perchè ha ${userAge} anni, quindi il costo del biglietto è di ${priceTicket.toFixed(2)}€ perchè ha diritto allo sconto del ${under18Discount}%`);
-    
-    } else {
-    
-        priceTicket = userKm * priceKm;
-        console.log(`L'utente non è nè minore, nè over 65 perchè ha ${userAge} anni, quindi il costo del biglietto è di ${priceTicket.toFixed(2)}€ perchè non ha diritto ad alcuno sconto`);
-    
-    }
+    priceTicket = userKm * priceKm * ((100 - under18Discount) / 100);
+    console.log(`L'utente è minorenne perchè ha ${userAge} anni, quindi il costo del biglietto è di ${priceTicket.toFixed(2)}€ perchè ha diritto allo sconto del ${under18Discount}%`);
 
-    console.log(`Ciao, per percorrere ${userKm} km, avendo ${userAge} anni, il costo del tuo biglietto è di ${priceTicket.toFixed(2)}€`);
-    document.getElementById('message').innerHTML = `Ciao, per percorrere ${userKm} km, avendo ${userAge} anni, il costo del tuo biglietto è di ${priceTicket.toFixed(2)}€`;
+} else if (userAge > 65) {
+
+    priceTicket = userKm * priceKm * ((100 - over65Discount) / 100);
+    console.log(`L'utente è over 65 perchè ha ${userAge} anni, quindi il costo del biglietto è di ${priceTicket.toFixed(2)}€ perchè ha diritto allo sconto del ${under18Discount}%`);
 
 } else {
 
-    console.log('Uno dei valori immessi non è un numero, ricaricare la pagina premendo "F5" per rieseguire nuovamente il calcolo');
-    document.getElementById('message').innerHTML = 'Uno dei valori immessi non è un numero, ricaricare la pagina premendo "F5" per rieseguire nuovamente il calcolo';
+    priceTicket = userKm * priceKm;
+    console.log(`L'utente non è nè minore, nè over 65 perchè ha ${userAge} anni, quindi il costo del biglietto è di ${priceTicket.toFixed(2)}€ perchè non ha diritto ad alcuno sconto`);
 
 }
+
+console.log(`Ciao, per percorrere ${userKm} km, avendo ${userAge} anni, il costo del tuo biglietto è di ${priceTicket.toFixed(2)}€`);
+document.getElementById('message').innerHTML = `Ciao, per percorrere ${userKm} km, avendo ${userAge} anni, il costo del tuo biglietto è di ${priceTicket.toFixed(2)}€ <br> Premi "F5" per ricaricare la pagina ed eseguire un nuovo calcolo.`;
